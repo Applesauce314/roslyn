@@ -51,10 +51,7 @@ namespace Microsoft.CodeAnalysis
 
             public ICompilationTracker Fork(ProjectState newProject, CompilationAndGeneratorDriverTranslationAction? translate)
             {
-                // TODO: This only needs to be implemented if a feature that operates from a source generated file then makes
-                // further mutations to that project, which isn't needed for now. This will be need to be fixed up when we complete
-                // https://github.com/dotnet/roslyn/issues/49533.
-                throw new NotImplementedException();
+                 return new GeneratedFileReplacingCompilationTracker(UnderlyingTracker.Fork(newProject, translate), replacementDocumentState);
             }
 
             public ICompilationTracker FreezePartialStateWithTree(SolutionState solution, DocumentState docState, SyntaxTree tree, CancellationToken cancellationToken)
